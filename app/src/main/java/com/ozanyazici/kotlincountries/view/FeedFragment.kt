@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ozanyazici.kotlincountries.adapter.CountryAdapter
@@ -47,7 +46,22 @@ class FeedFragment : Fragment() {
         binding.countryList.layoutManager = LinearLayoutManager(context)
         binding.countryList.adapter = countryAdapter
 
+        //Listeyi güncelleme
+        binding.swipeRefreshlayout.setOnRefreshListener {
+            binding.countryList.visibility = View.GONE
+            binding.countryError.visibility = View.GONE
+            binding.countryLoading.visibility = View.VISIBLE
+            binding.swipeRefreshlayout.isRefreshing = false
+            viewModel.refreshData()
+        }
+
+        /*
+        val myString = "james"
+        myString.myExtension("ozan")
+         */
+
         observeLiveData()
+
 
     }
 

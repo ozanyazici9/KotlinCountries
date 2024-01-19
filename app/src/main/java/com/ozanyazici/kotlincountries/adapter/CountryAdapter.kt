@@ -3,14 +3,15 @@ package com.ozanyazici.kotlincountries.adapter
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.ozanyazici.kotlincountries.model.Country
-import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
 import com.ozanyazici.kotlincountries.R
 import com.ozanyazici.kotlincountries.databinding.ItemCountryBinding
+import com.ozanyazici.kotlincountries.util.downloadFromURL
+import com.ozanyazici.kotlincountries.util.placeholderProgressBar
 import com.ozanyazici.kotlincountries.view.FeedFragmentDirections
+
 
 class CountryAdapter(val countryList: ArrayList<Country>): RecyclerView.Adapter<CountryAdapter.CountryViewHolder>() {
 
@@ -35,6 +36,10 @@ class CountryAdapter(val countryList: ArrayList<Country>): RecyclerView.Adapter<
             val action = FeedFragmentDirections.actionFeedFragmentToCountryFragment()
             Navigation.findNavController(it).navigate(action)
         }
+
+        holder.binding.imageView.downloadFromURL(countryList[position].imageUrl,
+            placeholderProgressBar(holder.itemView.context)
+        )
     }
 
     //SwipeRefresfhlayout güncellendiğinde yeni bir veri varsa bu metod çalışacak.
