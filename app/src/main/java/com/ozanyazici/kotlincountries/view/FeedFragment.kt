@@ -41,6 +41,7 @@ class FeedFragment : Fragment() {
 
         //FeedViewModelımızı bağlıyoruz.
         viewModel = ViewModelProvider(this).get(FeedViewModel::class.java)
+        //onViewCreated da refreshdata çağrıldığı için contryfragmentdan her dönüşte veri yenilenir.
         viewModel.refreshData()
 
         binding.countryList.layoutManager = LinearLayoutManager(context)
@@ -48,11 +49,11 @@ class FeedFragment : Fragment() {
 
         //Listeyi güncelleme
         binding.swipeRefreshlayout.setOnRefreshListener {
+            binding.swipeRefreshlayout.isRefreshing = false
             binding.countryList.visibility = View.GONE
             binding.countryError.visibility = View.GONE
             binding.countryLoading.visibility = View.VISIBLE
-            binding.swipeRefreshlayout.isRefreshing = false
-            viewModel.refreshData()
+            viewModel.refreshFromAPI()
         }
 
         /*
