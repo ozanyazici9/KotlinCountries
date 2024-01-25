@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <data>
+        <variable
+            name="country"
+            type="com.ozanyazici.kotlincountries.model.Country" />
+        <variable
+            name="listener"
+            type="com.ozanyazici.kotlincountries.adapter.CountryClickListener" />
+    </data>
+
 <LinearLayout
+    android:id="@+id/linearLayoutCard"
     android:layout_width="match_parent"
     android:layout_height="120dp"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:onClick="@{()->listener.onCountryClicked(linearLayoutCard,country.uuid)}">
 
     <ImageView
         android:id="@+id/imageView"
@@ -12,7 +23,7 @@
         android:layout_height="match_parent"
         android:layout_weight="3"
         android:padding="3dp"
-        android:src="@mipmap/ic_launcher">
+        android:downloadUrl="@{country.imageUrl}">
     </ImageView>
 
     <LinearLayout
@@ -26,7 +37,7 @@
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="name"
+            android:text="@{country.countryName}"
             android:textSize="20sp"
             android:textStyle="bold"
             android:padding="5dp">
@@ -37,7 +48,7 @@
             android:id="@+id/region"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="region"
+            android:text="@{country.countryRegion}"
             android:textSize="16sp"
             android:padding="5dp">
 

@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -19,7 +20,8 @@ class CountryFragment : Fragment() {
 
     private var countryUuid = 0
     private lateinit var viewModel: CountryViewModel
-    private lateinit var binding: FragmentCountryBinding
+    //dataBinding i hem view hemde view binding için kullanıyoruz.
+    private lateinit var dataBinding: FragmentCountryBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,8 +32,8 @@ class CountryFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentCountryBinding.inflate(layoutInflater)
-        val view = binding.root
+        dataBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_country,container,false)
+        val view = dataBinding.root
         return view
     }
 
@@ -51,6 +53,8 @@ class CountryFragment : Fragment() {
     private fun observeLiveData() {
         viewModel.countryLiveData.observe(viewLifecycleOwner, Observer { country ->
             country.let {
+                dataBinding.selectedCountry = country
+                /*
                 binding.countryName.text = it.countryName
                 binding.countryCapital.text = it.countryCapital
                 binding.countryCurrency.text = it.countryCurrency
@@ -59,6 +63,7 @@ class CountryFragment : Fragment() {
                 context?.let {
                     binding.countryImage.downloadFromURL(country.imageUrl, placeholderProgressBar(it))
                 }
+                 */
             }
         })
     }

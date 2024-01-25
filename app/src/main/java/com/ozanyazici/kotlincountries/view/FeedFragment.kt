@@ -21,10 +21,8 @@ class FeedFragment : Fragment() {
     private lateinit var viewModel: FeedViewModel
     private val countryAdapter = CountryAdapter(arrayListOf())
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(
@@ -62,8 +60,6 @@ class FeedFragment : Fragment() {
          */
 
         observeLiveData()
-
-
     }
 
     //Viewmodeldaki LiveDataları gözlemliyorum
@@ -100,8 +96,4 @@ class FeedFragment : Fragment() {
             }
         })
     }
-
-
-
-
 }
